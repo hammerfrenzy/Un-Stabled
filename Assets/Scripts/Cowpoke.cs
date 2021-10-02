@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +21,7 @@ public class Cowpoke : MonoBehaviour
     private float _speed = 6f;
     private float _moveThreshold = 0.2f;
     private Vector2 _direction = Vector2.zero;
+    private bool _canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -41,9 +40,10 @@ public class Cowpoke : MonoBehaviour
         var shouldWrangle = _wrangleAction.triggered;
         if (shouldWrangle)
         {
-            _animator.SetBool("IsWrangling", true);
+            StartWranglin();
         }
 
+        if (!_canMove) return;
         var direction = _moveAction.ReadValue<Vector2>();
         DoMovement(direction);
     }
@@ -61,8 +61,19 @@ public class Cowpoke : MonoBehaviour
         _animator.SetBool("IsMoving", true);
     }
 
+    private void StartWranglin()
+    {
+        _canMove = false;
+        _animator.SetBool("IsWrangling", true);
+        // Throw a overlap box to see if we hit something
+    }
+
+    /// <summary>
+    /// Called by an AnimationEvent at the end of the wrangle animation
+    /// </summary>
     private void DoneWranglin()
     {
+        _canMove = true;
         _animator.SetBool("IsWrangling", false);
     }
 }
