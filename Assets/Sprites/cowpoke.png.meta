@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: ee30c9124acf69f45bb6ce304957f069
+guid: 1e20af8cfba7c5a41a54ef183ebce9ff
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8815130777678085146
-    second: chimkin_0
+      213: 3366619590182840943
+    second: cowpoke_0
   - first:
-      213: -8466466242892009592
-    second: chimkin_1
+      213: -8217183475772731841
+    second: cowpoke_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: chimkin_0
+      name: cowpoke_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e382e3234d5aa580800000000000000
-      internalID: -8815130777678085146
+      spriteID: f6a28be1ea2a8be20800000000000000
+      internalID: 3366619590182840943
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: chimkin_1
+      name: cowpoke_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 32
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88fe5913fc1118a80800000000000000
-      internalID: -8466466242892009592
+      spriteID: f3e4b505a23b6fd80800000000000000
+      internalID: -8217183475772731841
       vertices: []
       indices: 
       edges: []
