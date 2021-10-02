@@ -1,19 +1,13 @@
 fileFormatVersion: 2
-guid: 1e20af8cfba7c5a41a54ef183ebce9ff
+guid: 0aeb058ac33019547ab47696a89ee32d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3366619590182840943
-    second: cowpoke_0
+      213: -3245185899363802127
+    second: cowpoke_wrangle_0
   - first:
-      213: -8217183475772731841
-    second: cowpoke_1
-  - first:
-      213: 8625506694584225207
-    second: cowpoke_2
-  - first:
-      213: 5913702771141601373
-    second: cowpoke_3
+      213: 3662859464741811891
+    second: cowpoke_wrangle_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -103,12 +97,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cowpoke_0
+      name: cowpoke_wrangle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
+        width: 64
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -117,19 +111,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f6a28be1ea2a8be20800000000000000
-      internalID: 3366619590182840943
+      spriteID: 1f360564e98c6f2d0800000000000000
+      internalID: -3245185899363802127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cowpoke_1
+      name: cowpoke_wrangle_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 64
         y: 0
-        width: 32
+        width: 64
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -138,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3e4b505a23b6fd80800000000000000
-      internalID: -8217183475772731841
+      spriteID: 3b6fc1ac64715d230800000000000000
+      internalID: 3662859464741811891
       vertices: []
       indices: 
       edges: []
