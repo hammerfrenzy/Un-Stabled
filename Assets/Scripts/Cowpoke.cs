@@ -14,10 +14,6 @@ public class Cowpoke : MonoBehaviour
     private InputActionReference _moveActionReference;
     private InputAction _moveAction;
 
-    [SerializeField]
-    private InputActionReference _wrangleActionReference;
-    private InputAction _wrangleAction;
-
     private float _speed = 6f;
     private float _moveThreshold = 0.2f;
     private Vector2 _direction = Vector2.zero;
@@ -31,14 +27,15 @@ public class Cowpoke : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
 
         _moveAction = _moveActionReference.action;
-        _wrangleAction = _wrangleActionReference.action;
     }
 
     // Update is called once per frame
     void Update()
     {
-        var shouldWrangle = _wrangleAction.triggered;
-        if (shouldWrangle)
+        var wrangleKeyboardPressed = Keyboard.current.spaceKey.wasPressedThisFrame;
+        var wrangleGamepadPressed = Gamepad.current.buttonSouth.wasPressedThisFrame;
+
+        if (wrangleKeyboardPressed || wrangleGamepadPressed)
         {
             StartWranglin();
         }
@@ -65,7 +62,25 @@ public class Cowpoke : MonoBehaviour
     {
         _canMove = false;
         _animator.SetBool("IsWrangling", true);
-        // Throw a overlap box to see if we hit something
+
+        var wrangleLeft = _renderer.flipX;
+        // var size = wrangleLeft ? new Vector2(-1.5f, 1.25f) : new Vector2(1.5f, 1.25f);
+        // Debug.Log($"Wrangle left? {wrangleLeft}");
+        // DrawDebugBox(size);
+        var hits = Physics2D.OverlapCircleAll(
+            transform.position,
+            1.25f,
+            LayerMask.GetMask("Animal")
+        );
+
+        Debug.Log($"Hit {hits.Length} animals.");
+
+        foreach (var hit in hits)
+        {
+            var animal = hit.GetComponent<IWrangleable>();
+            if (animal == null) continue;
+            animal.Wrangle(transform.position);
+        }
     }
 
     /// <summary>
@@ -75,5 +90,18 @@ public class Cowpoke : MonoBehaviour
     {
         _canMove = true;
         _animator.SetBool("IsWrangling", false);
+    }
+
+    private void DrawDebugBox(Vector2 size)
+    {
+        var wrangleLeft = _renderer.flipX;
+        var halfHeight = size.y / 2;
+        var x = transform.position.x;
+        var y = transform.position.y;
+
+        Debug.DrawLine(new Vector3(x, y + halfHeight, 0), new Vector3(x + size.x, y + halfHeight), Color.yellow, 2);
+        Debug.DrawLine(new Vector3(x, y - halfHeight, 0), new Vector3(x + size.x, y - halfHeight), Color.yellow, 2);
+        Debug.DrawLine(new Vector3(x, y + halfHeight, 0), new Vector3(x, y - halfHeight), Color.yellow, 2);
+        Debug.DrawLine(new Vector3(x + size.x, y + halfHeight, 0), new Vector3(x + size.x, y - halfHeight), Color.yellow, 2);
     }
 }
