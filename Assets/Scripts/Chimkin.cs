@@ -29,7 +29,7 @@ public class Chimkin : MonoBehaviour, IWrangleable
     void Update()
     {
         _nextMoveIn -= Time.deltaTime;
-        if (_nextMoveIn <= 0)
+        if (_nextMoveIn <= 0 && !_wrangledTimer.IsWrangled)
         {
             SquakAround();
             _nextMoveIn = _moveAfterSeconds;
