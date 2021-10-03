@@ -39,18 +39,18 @@ public class AnimalSpitterOuter : MonoBehaviour
         _nextSpawnTime -= Time.deltaTime;
         if (_nextSpawnTime <= 0)
         {
-            YeetAnimalsOutOfBarn(2);
+            StartCoroutine(YeetAnimalsOutOfBarn(2));
             _nextSpawnTime = GetNextSpawnTime();
         }
 
-        if (GameStarter.TimeLeft == 15 && _letEmLoose)
+        if (GameStarter.TimeLeft == 20 && _letEmLoose)
         {
-            YeetAnimalsOutOfBarn(10);
+            StartCoroutine(YeetAnimalsOutOfBarn(10));
             _letEmLoose = false;
         }
     }
 
-    private void YeetAnimalsOutOfBarn(int animalCount)
+    private IEnumerator YeetAnimalsOutOfBarn(int animalCount)
     {
         for (int x = 0; x < animalCount; x++)
         {
@@ -62,6 +62,11 @@ public class AnimalSpitterOuter : MonoBehaviour
             var wrangleable = animalObject.GetComponent<IWrangleable>();
             wrangleable.UnStable();
             StartCoroutine(ReLayerAnimalAfter(animalObject, 1.5f));
+
+            var sfx = AnimalSounds[index];
+            _audio.PlayOneShot(sfx);
+
+            yield return new WaitForSeconds(0.5f);
         }
     }
 

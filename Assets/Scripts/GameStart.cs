@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(AudioSource))]
 public class GameStart : MonoBehaviour
 {
     public Text TitleText;
@@ -15,6 +16,7 @@ public class GameStart : MonoBehaviour
 
     public event EventHandler GameStarted;
 
+    private AudioSource _audio;
     private Camera _camera;
     private bool _gameStarted = false;
     private bool _startCountdown = false;
@@ -23,12 +25,14 @@ public class GameStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _audio = GetComponent<AudioSource>();
+        Cursor.visible = false;
         _camera = Camera.main;
         TimeText.text = $"time: {((int)_secondsLeft).ToString("D2")}";
         TimeText.CrossFadeAlpha(0, 0, true);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (_gameStarted)
         {
@@ -57,6 +61,8 @@ public class GameStart : MonoBehaviour
         {
             _gameStarted = true;
             StartCoroutine(MoveCameraOver());
+
+            _audio.Play();
         }
     }
 

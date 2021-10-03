@@ -43,8 +43,7 @@ public class Cowpoke : MonoBehaviour
         _waitForGameStart = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (_waitForGameStart) return;
 
@@ -95,7 +94,7 @@ public class Cowpoke : MonoBehaviour
 
         var index = Random.Range(0, WrangleSounds.Length);
         var sfx = WrangleSounds[index];
-        _audio.PlayOneShot(sfx, 0.3f);
+        _audio.PlayOneShot(sfx);
     }
 
     /// <summary>
