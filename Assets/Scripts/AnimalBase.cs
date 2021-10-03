@@ -33,6 +33,13 @@ public class AnimalBase : MonoBehaviour, IWrangleable
             SquakAround();
             _nextMoveIn = _moveAfterSeconds;
         }
+
+        SpecialAnimalUpdate();
+    }
+
+    protected virtual void SpecialAnimalUpdate()
+    {
+
     }
 
     private void SquakAround()
