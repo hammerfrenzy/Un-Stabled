@@ -47,3 +47,8 @@ MonoBehaviour:
   - {fileID: 7700999538708089428, guid: 6e5e1de3d3e770441b2d2dd084b2e4b4, type: 3}
   - {fileID: 2144386898457785225, guid: f72f8a44591e8b64988e63980bda81b8, type: 3}
   - {fileID: 4636697930068188634, guid: ec3e38135eafd0948bc7e5e1eed5d9f5, type: 3}
+  AnimalSounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  GameStarter: {fileID: 0}

@@ -11,17 +11,20 @@ public class GameStart : MonoBehaviour
     public Text ControlsText;
     public Text TimeText;
 
+    public int TimeLeft { get { return (int)_secondsLeft; } }
+
     public event EventHandler GameStarted;
 
     private Camera _camera;
     private bool _gameStarted = false;
     private bool _startCountdown = false;
-    private float _secondsLeft = 5;
+    private float _secondsLeft = 60;
 
     // Start is called before the first frame update
     void Start()
     {
         _camera = Camera.main;
+        TimeText.text = $"time: {((int)_secondsLeft).ToString("D2")}";
         TimeText.CrossFadeAlpha(0, 0, true);
     }
 
@@ -32,7 +35,7 @@ public class GameStart : MonoBehaviour
             if (_startCountdown)
             {
                 _secondsLeft -= Time.deltaTime;
-                TimeText.text = $"Time: {(int)_secondsLeft}";
+                TimeText.text = $"time: {((int)_secondsLeft).ToString("D2")}";
                 if (_secondsLeft <= 0)
                 {
                     EndGame();

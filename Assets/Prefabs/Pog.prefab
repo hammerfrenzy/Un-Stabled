@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4087260187997597003}
   m_Layer: 6
   m_Name: Pog
-  m_TagString: Untagged
+  m_TagString: Pog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -4468676059004768627, guid: 297e27b6443ae554cb8a0d87c1c77b37, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -122,6 +122,7 @@ MonoBehaviour:
   MoveAfterSecondsBase: 3
   SpeedBase: 1
   WrangleSpeed: 6
+  GameStarter: {fileID: 0}
 --- !u!50 &4887229702089363896
 Rigidbody2D:
   serializedVersion: 4

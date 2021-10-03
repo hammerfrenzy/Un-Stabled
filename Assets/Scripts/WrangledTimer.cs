@@ -21,10 +21,15 @@ public class WrangledTimer : MonoBehaviour
         }
     }
 
-    public void StartWranglinCountdown()
+    public void StartWranglinCountdown(bool changeLayer)
     {
         _wrangleTimeRemaining = MaxWrangledTime;
         IsWrangled = true;
-        gameObject.layer = LayerMask.NameToLayer("Wrangled");
+
+        // if they just spawned we don't want to put them on wrangled layer
+        if (changeLayer)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Wrangled");
+        }
     }
 }

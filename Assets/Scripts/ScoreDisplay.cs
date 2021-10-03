@@ -19,6 +19,9 @@ public class ScoreDisplay : MonoBehaviour
     private int _chimkinCount = 0;
     private int _pogCount = 0;
     private int _mooCount = 0;
+    private int _chimkinMultiplier = 1;
+    private int _pogMultiplier = 3;
+    private int _mooMultiplier = 5;
     private int _score = 0;
     private int _previousHighScore = 0;
 
@@ -42,7 +45,14 @@ public class ScoreDisplay : MonoBehaviour
         _pogCount = PlayerPrefs.GetInt("pogs", 0);
         _mooCount = PlayerPrefs.GetInt("moos", 0);
         _previousHighScore = PlayerPrefs.GetInt("highScore", 0);
-        _score = (_chimkinCount * 1) + (_pogCount * 3) + (_mooCount * 5);
+        _score = (_chimkinCount * _chimkinMultiplier) +
+                 (_pogCount * _pogMultiplier) +
+                 (_mooCount * _mooMultiplier);
+
+        if (_score > _previousHighScore)
+        {
+            PlayerPrefs.SetInt("highScore", _score);
+        }
 
         // Hide everything
         ChimkinAnimation.SetActive(false);
@@ -84,39 +94,79 @@ public class ScoreDisplay : MonoBehaviour
     void ShowNext()
     {
         // Check in reverse order to only choose the most recent
-
         if (_hasShownHighScore)
         {
-            ThanksText.CrossFadeAlpha(1, _fadeDuration, false);
-            _hasShownThanks = true;
+            ShowThanks();
         }
         else if (_hasShownTotal)
         {
-            HighScoreText.CrossFadeAlpha(1, _fadeDuration, false);
-            _hasShownHighScore = true;
+            ShowHighScore();
         }
         else if (_hasShownMoos)
         {
-            TotalText.CrossFadeAlpha(1, _fadeDuration, false);
-            _hasShownTotal = true;
+            ShowTotal();
         }
         else if (_hasShownPogs)
         {
-            MooAnimation.SetActive(true);
-            MooText.CrossFadeAlpha(1, _fadeDuration, false);
-            _hasShownMoos = true;
+            ShowMoos();
         }
         else if (_hasShownChimkins)
         {
-            PogAnimation.SetActive(true);
-            PogText.CrossFadeAlpha(1, _fadeDuration, false);
-            _hasShownPogs = true;
+            ShowPogs();
         }
         else
         {
-            ChimkinAnimation.SetActive(true);
-            ChimkinText.CrossFadeAlpha(1, _fadeDuration, false);
-            _hasShownChimkins = true;
+            ShowChimkins();
         }
+    }
+
+    private void ShowChimkins()
+    {
+        ChimkinAnimation.SetActive(true);
+        var chimkinPoints = _chimkinCount * _chimkinMultiplier;
+        ChimkinText.text = $"chickens: {_chimkinCount}\nx{_chimkinMultiplier} = {chimkinPoints}";
+        ChimkinText.CrossFadeAlpha(1, _fadeDuration, false);
+        _hasShownChimkins = true;
+    }
+
+    private void ShowPogs()
+    {
+        PogAnimation.SetActive(true);
+        var pogPoints = _pogCount * _pogMultiplier;
+        PogText.text = $"pigs: {_pogCount}\nx{_pogMultiplier} = {pogPoints}";
+        PogText.CrossFadeAlpha(1, _fadeDuration, false);
+        _hasShownPogs = true;
+    }
+
+    private void ShowMoos()
+    {
+        MooAnimation.SetActive(true);
+        var mooPoints = _mooCount * _mooMultiplier;
+        MooText.text = $"cows: {_mooCount}\nx{_mooMultiplier} = {mooPoints}";
+        MooText.CrossFadeAlpha(1, _fadeDuration, false);
+        _hasShownMoos = true;
+    }
+
+    private void ShowTotal()
+    {
+        TotalText.text = $"total points: {_score}";
+        TotalText.CrossFadeAlpha(1, _fadeDuration, false);
+        _hasShownTotal = true;
+    }
+
+    private void ShowHighScore()
+    {
+        var isNew = _score > _previousHighScore;
+        var modifier = isNew ? "NEW " : "";
+        var highScore = isNew ? _score : _previousHighScore;
+        HighScoreText.text = $"{modifier}high score: {highScore}";
+        HighScoreText.CrossFadeAlpha(1, _fadeDuration, false);
+        _hasShownHighScore = true;
+    }
+
+    private void ShowThanks()
+    {
+        ThanksText.CrossFadeAlpha(1, _fadeDuration, false);
+        _hasShownThanks = true;
     }
 }

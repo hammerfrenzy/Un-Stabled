@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4636697930068188625}
   m_Layer: 6
   m_Name: Moo
-  m_TagString: Untagged
+  m_TagString: Moo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 6018016529872066481, guid: adcf604fbd30d054781a777c7c27c4eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

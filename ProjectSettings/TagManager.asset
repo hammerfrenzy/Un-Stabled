@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Stable
+  - Chimkin
+  - Pog
+  - Moo
   layers:
   - Default
   - TransparentFX
@@ -14,8 +18,8 @@ TagManager:
   - Animal
   - Wrangled
   - Gate
-  - 
-  - 
+  - Escaping
+  - Stable
   - 
   - 
   - 

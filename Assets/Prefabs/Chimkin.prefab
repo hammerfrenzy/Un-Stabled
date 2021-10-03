@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7700999538708089418}
   m_Layer: 6
   m_Name: Chimkin
-  m_TagString: Untagged
+  m_TagString: Chimkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -8815130777678085146, guid: ee30c9124acf69f45bb6ce304957f069, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -121,6 +121,7 @@ MonoBehaviour:
   MoveAfterSecondsBase: 3
   SpeedBase: 3
   WrangleSpeed: 4
+  GameStarter: {fileID: 0}
 --- !u!50 &7700999538708089416
 Rigidbody2D:
   serializedVersion: 4

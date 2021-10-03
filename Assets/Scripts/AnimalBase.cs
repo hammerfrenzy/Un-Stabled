@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(WrangledTimer))]
 public class AnimalBase : MonoBehaviour, IWrangleable
 {
@@ -11,6 +12,7 @@ public class AnimalBase : MonoBehaviour, IWrangleable
     public GameStart GameStarter;
 
     private Rigidbody2D _rigidbody;
+    private SpriteRenderer _renderer;
     private WrangledTimer _wrangledTimer;
     private float _moveAfterSeconds;
     private float _nextMoveIn;
@@ -21,6 +23,7 @@ public class AnimalBase : MonoBehaviour, IWrangleable
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _renderer = GetComponent<SpriteRenderer>();
         _wrangledTimer = GetComponent<WrangledTimer>();
         _moveAfterSeconds = MoveAfterSecondsBase + Random.Range(-1f, 1f);
         _nextMoveIn = _moveAfterSeconds;
@@ -43,6 +46,8 @@ public class AnimalBase : MonoBehaviour, IWrangleable
     {
         if (_waitForGameStart) return;
 
+        _renderer.flipX = _rigidbody.velocity.x < 0;
+
         _nextMoveIn -= Time.deltaTime;
         if (_nextMoveIn <= 0 && !_wrangledTimer.IsWrangled)
         {
@@ -55,7 +60,7 @@ public class AnimalBase : MonoBehaviour, IWrangleable
 
     protected virtual void SpecialAnimalUpdate()
     {
-
+        // truffles / cow pies? (time permitting)
     }
 
     private void MoveAround()
@@ -78,7 +83,7 @@ public class AnimalBase : MonoBehaviour, IWrangleable
 
         // Set the 'wrangled' status for some amount 
         // of time so they can move to the barn
-        _wrangledTimer.StartWranglinCountdown();
+        _wrangledTimer.StartWranglinCountdown(true);
     }
 
     public void UnStable()
@@ -89,7 +94,7 @@ public class AnimalBase : MonoBehaviour, IWrangleable
         var force = GetEscapeVelocity();
 
         _rigidbody.AddForce(direction * force, ForceMode2D.Impulse);
-        _wrangledTimer.StartWranglinCountdown();
+        _wrangledTimer.StartWranglinCountdown(false);
     }
 
     public virtual float GetEscapeVelocity()

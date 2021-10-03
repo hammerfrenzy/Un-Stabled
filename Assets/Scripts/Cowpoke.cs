@@ -2,13 +2,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Cowpoke : MonoBehaviour
 {
     public GameStart GameStarter;
+    public AudioClip[] WrangleSounds;
 
     private Animator _animator;
+    private AudioSource _audio;
     private CharacterController _controller;
     private SpriteRenderer _renderer;
 
@@ -28,6 +31,7 @@ public class Cowpoke : MonoBehaviour
         GameStarter.GameStarted += GameStarted;
 
         _animator = GetComponent<Animator>();
+        _audio = GetComponent<AudioSource>();
         _controller = GetComponent<CharacterController>();
         _renderer = GetComponent<SpriteRenderer>();
 
@@ -76,16 +80,11 @@ public class Cowpoke : MonoBehaviour
         _animator.SetBool("IsWrangling", true);
 
         var wrangleLeft = _renderer.flipX;
-        // var size = wrangleLeft ? new Vector2(-1.5f, 1.25f) : new Vector2(1.5f, 1.25f);
-        // Debug.Log($"Wrangle left? {wrangleLeft}");
-        // DrawDebugBox(size);
         var hits = Physics2D.OverlapCircleAll(
             transform.position,
             1.25f,
-            LayerMask.GetMask("Animal")
+            LayerMask.GetMask("Animal", "Wrangled")
         );
-
-        Debug.Log($"Hit {hits.Length} animals.");
 
         foreach (var hit in hits)
         {
@@ -93,6 +92,10 @@ public class Cowpoke : MonoBehaviour
             if (animal == null) continue;
             animal.Wrangle(transform.position);
         }
+
+        var index = Random.Range(0, WrangleSounds.Length);
+        var sfx = WrangleSounds[index];
+        _audio.PlayOneShot(sfx, 0.3f);
     }
 
     /// <summary>
