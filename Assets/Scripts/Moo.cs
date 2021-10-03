@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Moo : AnimalBase
 {
-    protected override void SpecialAnimalUpdate()
+    public override float GetEscapeVelocity()
     {
-        Debug.Log("Imma cow yo");
+        return 20;
     }
 }

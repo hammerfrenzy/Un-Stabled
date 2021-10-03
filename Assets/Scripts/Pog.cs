@@ -4,4 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(WrangledTimer))]
 public class Pog : AnimalBase
 {
+    public override float GetEscapeVelocity()
+    {
+        return 10;
+    }
 }

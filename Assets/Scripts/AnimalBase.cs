@@ -13,15 +13,17 @@ public class AnimalBase : MonoBehaviour, IWrangleable
     private float _moveAfterSeconds;
     private float _nextMoveIn;
     private float _speed;
+    private bool _isUnWrangleable;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _wrangledTimer = GetComponent<WrangledTimer>();
         _moveAfterSeconds = MoveAfterSecondsBase + Random.Range(-1f, 1f);
         _nextMoveIn = _moveAfterSeconds;
         _speed = SpeedBase + Random.Range(-0.5f, 0.5f);
+        _isUnWrangleable = false;
     }
 
     // Update is called once per frame
@@ -30,7 +32,7 @@ public class AnimalBase : MonoBehaviour, IWrangleable
         _nextMoveIn -= Time.deltaTime;
         if (_nextMoveIn <= 0 && !_wrangledTimer.IsWrangled)
         {
-            SquakAround();
+            MoveAround();
             _nextMoveIn = _moveAfterSeconds;
         }
 
@@ -42,7 +44,7 @@ public class AnimalBase : MonoBehaviour, IWrangleable
 
     }
 
-    private void SquakAround()
+    private void MoveAround()
     {
         var dx = Random.Range(-1f, 1f);
         var dy = Random.Range(-1f, 1f);
@@ -63,6 +65,24 @@ public class AnimalBase : MonoBehaviour, IWrangleable
         // Set the 'wrangled' status for some amount 
         // of time so they can move to the barn
         _wrangledTimer.StartWranglinCountdown();
+    }
+
+    public void UnStable()
+    {
+        _isUnWrangleable = true;
+
+        // away from barn with some y variance
+        var dy = Random.Range(-0.8f, 0.8f);
+        var direction = new Vector2(1, dy).normalized;
+        var force = GetEscapeVelocity();
+
+        _rigidbody.AddForce(direction * force, ForceMode2D.Impulse);
+        _wrangledTimer.StartWranglinCountdown();
+    }
+
+    public virtual float GetEscapeVelocity()
+    {
+        return 4;
     }
 
     public bool IsGettinWrangled()
