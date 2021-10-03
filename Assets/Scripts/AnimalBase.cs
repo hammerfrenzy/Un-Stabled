@@ -8,12 +8,14 @@ public class AnimalBase : MonoBehaviour, IWrangleable
     public float SpeedBase = 1;
     public float WrangleSpeed = 4;
 
+    public GameStart GameStarter;
+
     private Rigidbody2D _rigidbody;
     private WrangledTimer _wrangledTimer;
     private float _moveAfterSeconds;
     private float _nextMoveIn;
     private float _speed;
-    private bool _isUnWrangleable;
+    private bool _waitForGameStart;
 
     // Start is called before the first frame update
     void Awake()
@@ -23,12 +25,24 @@ public class AnimalBase : MonoBehaviour, IWrangleable
         _moveAfterSeconds = MoveAfterSecondsBase + Random.Range(-1f, 1f);
         _nextMoveIn = _moveAfterSeconds;
         _speed = SpeedBase + Random.Range(-0.5f, 0.5f);
-        _isUnWrangleable = false;
+
+        if (GameStarter != null)
+        {
+            _waitForGameStart = true;
+            GameStarter.GameStarted += GameStarted;
+        }
+    }
+
+    void GameStarted(object sender, System.EventArgs e)
+    {
+        _waitForGameStart = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_waitForGameStart) return;
+
         _nextMoveIn -= Time.deltaTime;
         if (_nextMoveIn <= 0 && !_wrangledTimer.IsWrangled)
         {
@@ -69,8 +83,6 @@ public class AnimalBase : MonoBehaviour, IWrangleable
 
     public void UnStable()
     {
-        _isUnWrangleable = true;
-
         // away from barn with some y variance
         var dy = Random.Range(-0.8f, 0.8f);
         var direction = new Vector2(1, dy).normalized;

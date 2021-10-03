@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Cowpoke : MonoBehaviour
 {
+    public GameStart GameStarter;
+
     private Animator _animator;
     private CharacterController _controller;
     private SpriteRenderer _renderer;
@@ -18,10 +20,13 @@ public class Cowpoke : MonoBehaviour
     private float _moveThreshold = 0.2f;
     private Vector2 _direction = Vector2.zero;
     private bool _canMove = true;
+    private bool _waitForGameStart = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        GameStarter.GameStarted += GameStarted;
+
         _animator = GetComponent<Animator>();
         _controller = GetComponent<CharacterController>();
         _renderer = GetComponent<SpriteRenderer>();
@@ -29,9 +34,16 @@ public class Cowpoke : MonoBehaviour
         _moveAction = _moveActionReference.action;
     }
 
+    void GameStarted(object sender, System.EventArgs e)
+    {
+        _waitForGameStart = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (_waitForGameStart) return;
+
         var wrangleKeyboardPressed = Keyboard.current.spaceKey.wasPressedThisFrame;
         var wrangleGamepadPressed = Gamepad.current.buttonSouth.wasPressedThisFrame;
 
@@ -90,18 +102,5 @@ public class Cowpoke : MonoBehaviour
     {
         _canMove = true;
         _animator.SetBool("IsWrangling", false);
-    }
-
-    private void DrawDebugBox(Vector2 size)
-    {
-        var wrangleLeft = _renderer.flipX;
-        var halfHeight = size.y / 2;
-        var x = transform.position.x;
-        var y = transform.position.y;
-
-        Debug.DrawLine(new Vector3(x, y + halfHeight, 0), new Vector3(x + size.x, y + halfHeight), Color.yellow, 2);
-        Debug.DrawLine(new Vector3(x, y - halfHeight, 0), new Vector3(x + size.x, y - halfHeight), Color.yellow, 2);
-        Debug.DrawLine(new Vector3(x, y + halfHeight, 0), new Vector3(x, y - halfHeight), Color.yellow, 2);
-        Debug.DrawLine(new Vector3(x + size.x, y + halfHeight, 0), new Vector3(x + size.x, y - halfHeight), Color.yellow, 2);
     }
 }
